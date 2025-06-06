@@ -54,7 +54,6 @@ public class ReservatieMenu {
                     ReservatieCreateDTO dto = new ReservatieCreateDTO();
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
-                    // Starttijd
                     while (dto.getStartTijd() == null) {
                         System.out.print("Starttijd (yyyy-MM-dd HH:mm): ");
                         try {
@@ -69,7 +68,6 @@ public class ReservatieMenu {
                         }
                     }
 
-                    // Eindtijd
                     while (dto.getEindTijd() == null) {
                         System.out.print("Eindtijd (yyyy-MM-dd HH:mm): ");
                         try {
@@ -86,7 +84,6 @@ public class ReservatieMenu {
                         }
                     }
 
-                    // Aantal personen
                     Integer aantal = null;
                     while (aantal == null || aantal < 1) {
                         System.out.print("Aantal personen: ");
@@ -99,11 +96,9 @@ public class ReservatieMenu {
                     }
                     dto.setAantalPersonen(aantal);
 
-                    // Commentaar
                     System.out.print("Commentaar (optioneel): ");
                     dto.setCommentaar(scanner.nextLine());
 
-                    // Gebruiker ID
                     while (true) {
                         userClient.toonAlleGebruikers();
                         System.out.print("Kies gebruiker (ID): ");
@@ -124,7 +119,6 @@ public class ReservatieMenu {
                     boolean succesvol = false;
 
                     while (!succesvol) {
-                        // Lokalen opvragen
                         while (dto.getLokaalIds() == null || dto.getLokaalIds().isEmpty()) {
                             lokaalClient.toonAlleLokalen();
                             System.out.print("Lokaal ID(s) (gescheiden door komma): ");
@@ -190,7 +184,6 @@ public class ReservatieMenu {
                             System.out.println("❌ Ongeldig ID-formaat.");
                         }
 
-                        // Vraag of de gebruiker wil stoppen
                         System.out.print("⛔ Stoppen met bewerken? (Y/N): ");
                         String keuze3 = scanner.nextLine().trim().toLowerCase();
                         if (keuze3.equals("y")) {
@@ -203,13 +196,13 @@ public class ReservatieMenu {
                     ReservatieDTO origineel = client.getByIdReturn(id);
                     ReservatieUpdateDTO dto = new ReservatieUpdateDTO();
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-                    // Starttijd
+
                     while (dto.getStartTijd() == null) {
                         System.out.print("Starttijd (yyyy-MM-dd HH:mm) [" + origineel.getStartTijd().format(formatter) + "] (leeg om huidig te behouden): ");
                         String input = scanner.nextLine().trim();
 
                         if (input.isEmpty()) {
-                            dto.setStartTijd(origineel.getStartTijd()); // behoud originele waarde
+                            dto.setStartTijd(origineel.getStartTijd());
                         } else {
                             try {
                                 LocalDateTime parsed = LocalDateTime.parse(input, formatter);
@@ -225,14 +218,12 @@ public class ReservatieMenu {
                         }
                     }
 
-
-                    // Eindtijd
                     while (dto.getEindTijd() == null) {
                         System.out.print("Eindtijd (yyyy-MM-dd HH:mm) [" + origineel.getEindTijd().format(formatter) + "] (leeg om huidig te behouden): ");
                         String input = scanner.nextLine().trim();
 
                         if (input.isEmpty()) {
-                            dto.setEindTijd(origineel.getEindTijd()); // behoud originele waarde
+                            dto.setEindTijd(origineel.getEindTijd());
                         } else {
                             try {
                                 LocalDateTime parsed = LocalDateTime.parse(input, formatter);
@@ -251,14 +242,12 @@ public class ReservatieMenu {
                         }
                     }
 
-
-                    // Aantal personen
                     Integer aantal = null;
                     while (aantal == null) {
                         System.out.print("Aantal personen (leeg om huidig te behouden): ");
                         String input = scanner.nextLine();
                         if (input.isBlank()) {
-                            aantal = origineel.getAantalPersonen(); // bestaande = ReservatieDTO van eerder
+                            aantal = origineel.getAantalPersonen();
                             dto.setAantalPersonen(aantal);
                             break;
                         }
@@ -281,7 +270,6 @@ public class ReservatieMenu {
                     String commentaarInput = scanner.nextLine();
                     dto.setCommentaar(commentaarInput.isBlank() ? origineel.getCommentaar() : commentaarInput);
 
-                    // Lokalen
                     List<Long> origineleLokaalIds = origineel.getLokaalNamen().stream()
                             .map(lokaalClient::getIdByNaam)
                             .filter(Objects::nonNull)
@@ -291,7 +279,7 @@ public class ReservatieMenu {
                         System.out.print("Nieuwe lokaal ID(s) (Enter om te behouden): ");
                         String input = scanner.nextLine();
                         if (input.isBlank()) {
-                            dto.setLokaalIds(origineleLokaalIds); // behoud
+                            dto.setLokaalIds(origineleLokaalIds);
                             break;
                         }
                         try {
@@ -311,8 +299,6 @@ public class ReservatieMenu {
                         }
                     }
 
-
-
                     try {
                         client.update(id, dto);
                         System.out.println("✅ Reservatie succesvol aangepast.");
@@ -327,7 +313,6 @@ public class ReservatieMenu {
 
                     Long id = null;
 
-                    // Herhaal tot geldige ID
                     while (id == null) {
                         System.out.print("ID te verwijderen: ");
                         String input = scanner.nextLine();
@@ -339,7 +324,6 @@ public class ReservatieMenu {
                         }
                     }
 
-                    // Bevestiging
                     System.out.print("❓ Ben je zeker dat je reservatie " + id + " wil verwijderen? (Y/N): ");
                     String bevestiging = scanner.nextLine().trim().toLowerCase();
 

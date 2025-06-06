@@ -4,7 +4,7 @@ import be.ucll.cliapp.util.ConsoleUtil;
 
 import java.util.Scanner;
 
-public class MenuService {
+public class MainMenu {
     private final Scanner scanner = new Scanner(System.in);
     private final CampusMenu campusMenu = new CampusMenu();
     private final UserMenu userMenu = new UserMenu();

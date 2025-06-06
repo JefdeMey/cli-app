@@ -51,7 +51,6 @@ public class UserMenu {
                 case "3" -> {
                     ConsoleUtil.clearScreen();
 
-                    // Voornaam
                     String voornaam = "";
                     while (voornaam.isBlank()) {
                         System.out.print("Voornaam: ");
@@ -59,7 +58,6 @@ public class UserMenu {
                         if (voornaam.isBlank()) System.out.println("❌ Voornaam mag niet leeg zijn.");
                     }
 
-                    // Achternaam
                     String achternaam = "";
                     while (achternaam.isBlank()) {
                         System.out.print("Achternaam: ");
@@ -67,7 +65,6 @@ public class UserMenu {
                         if (achternaam.isBlank()) System.out.println("❌ Achternaam mag niet leeg zijn.");
                     }
 
-                    // Email
                     String email = "";
                     while (email.isBlank() || !email.contains("@")) {
                         System.out.print("Email: ");
@@ -77,7 +74,6 @@ public class UserMenu {
                         }
                     }
 
-                    // Geboortedatum
                     String geboortedatum = "";
                     boolean geldig = false;
                     while (!geldig) {
@@ -91,7 +87,6 @@ public class UserMenu {
                         }
                     }
 
-                    // Alles ok → gebruiker toevoegen
                     userClient.voegGebruikerToe(voornaam, achternaam, email, geboortedatum);
                     ConsoleUtil.pressEnterToContinue(scanner);
                 }
@@ -109,21 +104,18 @@ public class UserMenu {
                             break;
                         }
 
-                        // Voornaam
                         System.out.print("Nieuwe voornaam (leeg om te behouden): ");
                         String voornaam = scanner.nextLine();
                         if (!voornaam.isBlank()) {
                             bestaand.setVoornaam(voornaam);
                         }
 
-                        // Achternaam
                         System.out.print("Nieuwe achternaam (leeg om te behouden): ");
                         String achternaam = scanner.nextLine();
                         if (!achternaam.isBlank()) {
                             bestaand.setAchternaam(achternaam);
                         }
 
-                        // Email
                         System.out.print("Nieuwe email (leeg om te behouden): ");
                         String email = scanner.nextLine();
                         if (!email.isBlank()) {
@@ -134,7 +126,6 @@ public class UserMenu {
                             }
                         }
 
-                        // Geboortedatum
                         System.out.print("Nieuwe geboortedatum (yyyy-mm-dd, leeg om te behouden): ");
                         String geboortedatum = scanner.nextLine();
                         if (!geboortedatum.isBlank()) {

@@ -50,14 +50,12 @@ public class LokaalMenu {
                     String campusNaam = "";
                     CampusDTO campus = null;
 
-                    // ⛔️ Herhaal zolang geen geldige campus werd gevonden
                     while (campus == null) {
                         System.out.print("Campusnaam: ");
                         campusNaam = scanner.nextLine();
                         campus = campusClient.zoekCampusOpNaamEnGeefTerug(campusNaam);
                     }
 
-                    // ✅ Campus bestaat — ga verder
                     lokaalClient.toonLokalenBinnenCampus(campusNaam);
 
                     LokaalCreateDTO dto = maakLokaalDTO(scanner);
@@ -70,14 +68,12 @@ public class LokaalMenu {
                     System.out.print("Naam van de campus waarvan je een lokaal wil bewerken: ");
                     String campusNaam = scanner.nextLine();
 
-                    // ✅ Controleer of de campus bestaat
                     CampusDTO campus = campusClient.zoekCampusOpNaamEnGeefTerug(campusNaam);
                     if (campus == null) {
                         ConsoleUtil.pressEnterToContinue(scanner);
                         break;
                     }
 
-                    // ✅ Toon lokalen
                     List<LokaalDTO> lijst = lokaalClient.haalLokalenBinnenCampus(campusNaam);
                     if (lijst.isEmpty()) {
                         System.out.println("⚠️ Geen lokalen gevonden in deze campus.");
@@ -87,7 +83,6 @@ public class LokaalMenu {
 
                     lijst.forEach(l -> System.out.printf("ID %d - %s%n", l.getId(), l.getNaam()));
 
-                    // ✅ Kies ID van lokaal
                     System.out.print("ID van lokaal om aan te passen (enter om te annuleren): ");
                     String input = scanner.nextLine();
                     if (input.isBlank()) {
@@ -104,7 +99,6 @@ public class LokaalMenu {
                             break;
                         }
 
-                        // ✅ Vraag nieuwe gegevens, leeg = behoud huidig
                         LokaalCreateDTO dto = new LokaalCreateDTO();
 
                         System.out.print("Nieuwe naam (leeg = behouden): ");
@@ -183,7 +177,6 @@ public class LokaalMenu {
     private LokaalCreateDTO maakLokaalDTO(Scanner scanner) {
         LokaalCreateDTO dto = new LokaalCreateDTO();
 
-        // Naam
         String naam = "";
         while (naam.isBlank()) {
             System.out.print("Lokaalnaam: ");
@@ -192,7 +185,6 @@ public class LokaalMenu {
         }
         dto.setNaam(naam);
 
-        // Type
         String type = "";
         while (type.isBlank()) {
             System.out.print("Type: ");
@@ -201,7 +193,6 @@ public class LokaalMenu {
         }
         dto.setType(type);
 
-        // Aantal personen
         Integer personen = null;
         while (personen == null || personen <= 0) {
             System.out.print("Aantal personen: ");
@@ -215,7 +206,6 @@ public class LokaalMenu {
         }
         dto.setAantalPersonen(personen);
 
-        // Voornaam
         String voornaam = "";
         while (voornaam.isBlank()) {
             System.out.print("Voornaam verantwoordelijke: ");
@@ -224,7 +214,6 @@ public class LokaalMenu {
         }
         dto.setVoornaam(voornaam);
 
-        // Achternaam
         String achternaam = "";
         while (achternaam.isBlank()) {
             System.out.print("Achternaam verantwoordelijke: ");
@@ -233,7 +222,6 @@ public class LokaalMenu {
         }
         dto.setAchternaam(achternaam);
 
-        // Verdieping
         Integer verdieping = null;
         while (verdieping == null) {
             System.out.print("Verdieping: ");

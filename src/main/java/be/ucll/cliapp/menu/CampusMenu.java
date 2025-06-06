@@ -75,9 +75,9 @@
                         System.out.print("Naam van te bewerken campus: ");
                         String naam = scanner.nextLine();
 
-                        // ✅ Campus bestaan checken vóór verdere input
                         CampusDTO bestaand = campusClient.zoekCampusOpNaamEnGeefTerug(naam);
                         if (bestaand == null) {
+                            System.out.println("❌ Campus niet gevonden");
                             ConsoleUtil.pressEnterToContinue(scanner);
                             break;
                         }
@@ -105,7 +105,6 @@
                                 }
                             }
                         }
-
                         campusClient.wijzigCampus(naam, adres, parkeerplaatsen);
                         ConsoleUtil.pressEnterToContinue(scanner);
                     }

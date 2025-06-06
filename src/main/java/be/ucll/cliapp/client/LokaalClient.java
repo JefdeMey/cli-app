@@ -22,7 +22,7 @@ public class LokaalClient extends ApiClient {
             if(lokalen != null && lokalen.length != 0) {
                 Arrays.stream(lokalen).forEach(this::printLokaal);
             } else {
-                System.out.println("❌ Geen lokalen in de db: ");
+                System.out.println("❌ Geen lokalen in de db");
             }
 
         } catch (Exception e) {
@@ -42,7 +42,6 @@ public class LokaalClient extends ApiClient {
             } else {
                 System.out.println("❌ Lokaal niet gevonden");
             }
-
         } catch (Exception e) {
             System.out.println("❌ Lokaal niet gevonden: " + e.getMessage());
         }

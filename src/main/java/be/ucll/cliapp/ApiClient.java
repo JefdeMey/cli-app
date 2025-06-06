@@ -7,7 +7,7 @@ public class ApiClient {
 
     public ApiClient() {
         this.webClient = WebClient.builder()
-                .baseUrl("http://localhost:8080") // pas aan indien nodig
+                .baseUrl("http://localhost:8080")
                 .build();
     }
 }
